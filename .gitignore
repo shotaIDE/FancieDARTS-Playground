@@ -13,4 +13,11 @@
 wp-content/*
 !wp-content/themes
 wp-content/themes/*
+!wp-content/themes/dp-fancie-note
+wp-content/themes/dp-fancie-note/*
+!wp-content/themes/dp-fancie-note/inc
+wp-content/themes/dp-fancie-note/inc/*
+!wp-content/themes/dp-fancie-note/inc/scr
+wp-content/themes/dp-fancie-note/inc/scr/*
+!wp-content/themes/dp-fancie-note/inc/scr/related_posts.php
 !wp-content/themes/dp-fancie-note-child
