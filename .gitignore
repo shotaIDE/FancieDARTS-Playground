@@ -21,3 +21,8 @@ wp-content/themes/dp-fancie-note/inc/*
 wp-content/themes/dp-fancie-note/inc/scr/*
 !wp-content/themes/dp-fancie-note/inc/scr/related_posts.php
 !wp-content/themes/dp-fancie-note-child
+!wp-content/plugins
+wp-content/plugins/*
+!wp-content/plugins/custom-field-template
+wp-content/plugins/custom-field-template/*
+!wp-content/plugins/custom-field-template/custom-field-template.php
