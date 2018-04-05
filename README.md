@@ -61,18 +61,24 @@ $ cp -r /path/to/downloadfile/dp-ex-simple-rating/ wp-content/plugins/
 $ cp -r /path/to/downloadfile/shortcodes-for-digipress/ wp-content/plugins/
 ```
 
-11. 不要なテーマとプラグインを削除
+11. プラグインを追加
+```
+$ wp plugin install custom-post-type-ui custom-field-template wordpress-importer
+$ wp plugin install backwpup user-activity-log
+```
+
+12. 不要なテーマとプラグインを削除
 ```
 $ wp theme delete twentyfifteen twentyseventeen twentysixteen
 $ wp plugin delete akismet
 $ rm wp-content/languages/plugins/akismet-ja.*
 ```
 
-12. アップロードファイルをコピー
+13. アップロードファイルをコピー
 
 本番環境からアップロードファイル`/wp-content/uploads/`をダウンロードし，開発環境にコピー
 
-13. リンク制御を生成
+14. リンク制御を生成
 
 `localhost`をブラウザで表示し，管理画面からパーマリンク設定を上書き保存することで，`.htaccess`ファイルを作成
 
@@ -120,7 +126,13 @@ $ cp -r /path/to/downloadfile/dp-ex-simple-rating/ wp-content/plugins/
 $ cp -r /path/to/downloadfile/shortcodes-for-digipress/ wp-content/plugins/
 ```
 
-10. 不要なテーマとプラグインを削除
+10. プラグインを追加
+```
+$ wp plugin install custom-post-type-ui custom-field-template wordpress-importer
+$ wp plugin install backwpup user-activity-log
+```
+
+11. 不要なテーマとプラグインを削除
 ```
 $ wp theme delete twentyfifteen twentyseventeen twentysixteen
 $ wp plugin delete akismet
