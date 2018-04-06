@@ -13,23 +13,3 @@ $DARTS_MEMBER_TAX_OFFICE = 'member_office'; // 営業所
 $DARTS_MEMBER_TAX_POST = 'member_post'; // 所属部署
 
 $DARTS_MEMBER_IMG_WIDTH = 360; //トップに表示する写真のサイズ
-
-function _DARTS_get_html_member_tax_list($list, $tax_slug) {
-    $html = "";
-    $num = 0;
-    foreach ($list as $key => $val) {
-        if ($num >= 1) $html .= ' / ';
-        $html .= '<a href="' .get_term_link($val->slug , $tax_slug) .'">';
-        $html .= $val->name .'</a>';
-        $num++;
-    }
-    return $html;
-}
-
-function _DARTS_get_html_member_post_list($list) {
-    return _DARTS_get_html_member_tax_list($list, $DARTS_MEMBER_TAX_POST);
-}
-
-function _DARTS_get_html_member_office_list($list) {
-    return _DARTS_get_html_member_tax_list($list, $DARTS_MEMBER_TAX_OFFICE);
-}
