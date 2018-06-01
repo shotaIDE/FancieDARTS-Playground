@@ -16,7 +16,7 @@ services:
     volumes:
       - ./backup:/tmp/fanciedarts/data
       - ./entrypoint-initapp.sh:/tmp/fanciedarts/entrypoint-initapp.sh
-      - ./app:/var/www/html/fanciedarts
+      - ./app:/var/www/html
     ports:
       - "80:80"
     env_file: ./wordpress.env
