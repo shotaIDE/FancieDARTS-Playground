@@ -5,7 +5,7 @@ Plugin URI: http://wpgogo.com/development/custom-field-template.html
 Description: This plugin adds the default custom fields on the Write Post/Page.
 Author: Hiroaki Miyashita
 Author URI: http://wpgogo.com/
-Version: 2.3.8
+Version: 2.4
 Text Domain: custom-field-template
 Domain Path: /
 */
@@ -34,6 +34,7 @@ I appreciate your efforts, Joshua.
 
 class custom_field_template {
 	var $is_excerpt, $format_post_id;
+	private $replace_val;
 
 	function __construct() {
 		add_action( 'plugins_loaded', array(&$this, 'custom_field_template_plugins_loaded') );
@@ -62,8 +63,7 @@ class custom_field_template {
 		add_filter( 'edit_form_after_title', array(&$this, 'custom_field_template_edit_form_after_title') );
 
 		if ( isset($_REQUEST['cftsearch_submit']) ) :
-			if ( !empty($_REQUEST['limit']) )
-				add_action( 'post_limits', array(&$this, 'custom_field_template_post_limits'), 100);
+			add_action( 'post_limits', array(&$this, 'custom_field_template_post_limits'), 100);
 			add_filter( 'posts_join', array(&$this, 'custom_field_template_posts_join'), 100 );
 			add_filter( 'posts_where', array(&$this, 'custom_field_template_posts_where'), 100 );
 			add_filter( 'posts_orderby',  array(&$this, 'custom_field_template_posts_orderby'), 100 );
@@ -3631,9 +3631,9 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 											$values = explode( '#', $rval['value'] );
 										else
 											$values = explode( '#', $rval['originalValue'] );
-										$valueLabel = explode( '#', $rval['valueLabel'] );
-										$default = explode( '#', $rval['default'] );
-										if ( is_numeric($rval['searchCode']) ) :
+										$valueLabel = isset($rval['valueLabel']) ? explode( '#', $rval['valueLabel'] ) : array();
+										$default = isset($rval['default']) ? explode( '#', $rval['default'] ) : array();
+										if ( isset($rval['searchCode']) && is_numeric($rval['searchCode']) ) :
 											eval(stripcslashes($options['php'][$rval['searchCode']]));
 										endif;
 										if ( count($values) > 1 ) :
@@ -3642,7 +3642,7 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 											foreach( $values as $metavalue ) :
 												$checked = '';
 												$metavalue = trim($metavalue);
-												if ( is_array($_REQUEST['cftsearch'][rawurlencode($key)][$rkey]) ) :
+												if ( isset($_REQUEST['cftsearch']) && is_array($_REQUEST['cftsearch'][rawurlencode($key)][$rkey]) ) :
 													if ( in_array($metavalue, $_REQUEST['cftsearch'][rawurlencode($key)][$rkey]) )
 														$checked = ' checked="checked"';
 													else
@@ -3652,7 +3652,7 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 													$checked = ' checked="checked"';
 
 												$replace_val[$rkey] .= '<li><label><input type="checkbox" name="cftsearch[' . rawurlencode($key) . '][' . $rkey . '][]" value="' . esc_attr($metavalue) . '"' . $class . $checked . '  /> ';			
-												if ( $valueLabel[$j] ) $replace_val[$rkey] .= stripcslashes($valueLabel[$j]);
+												if ( isset($valueLabel[$j]) ) $replace_val[$rkey] .= stripcslashes($valueLabel[$j]);
 												else $replace_val[$rkey] .= stripcslashes($metavalue);
 												$replace_val[$rkey] .= '</label></li>';
 												$j++;
@@ -3670,9 +3670,9 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 									case 'radio':
 										if ( !empty($rval['class']) ) $class = ' class="' . $rval['class'] . '"'; 
 										$values = explode( '#', $rval['value'] );
-										$valueLabel = explode( '#', $rval['valueLabel'] );
-										$default = explode( '#', $rval['default'] );
-										if ( is_numeric($rval['searchCode']) ) :
+										$valueLabel = isset($rval['valueLabel']) ? explode( '#', $rval['valueLabel'] ) : array();
+										$default = isset($rval['default']) ? explode( '#', $rval['default'] ) : array();
+										if ( isset($rval['searchCode']) && is_numeric($rval['searchCode']) ) :
 											eval(stripcslashes($options['php'][$rval['searchCode']]));
 										endif;
 										if ( count($values) > 1 ) :
@@ -3681,16 +3681,16 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 											foreach ( $values as $metavalue ) :
 												$checked = '';
 												$metavalue = trim($metavalue);
-												if ( is_array($_REQUEST['cftsearch'][rawurlencode($key)][$rkey]) ) :
+												if ( isset($_REQUEST['cftsearch']) && is_array($_REQUEST['cftsearch'][rawurlencode($key)][$rkey]) ) :
 													if ( in_array($metavalue, $_REQUEST['cftsearch'][rawurlencode($key)][$rkey]) )
 														$checked = ' checked="checked"';
 													else
 														$checked = '';
 												endif;
-												if ( in_array($metavalue, $default) && !$_REQUEST['cftsearch'][rawurlencode($key)][$rkey] )
+												if ( in_array($metavalue, $default) && (isset($_REQUEST['cftsearch']) && !$_REQUEST['cftsearch'][rawurlencode($key)][$rkey]) )
 													$checked = ' checked="checked"';
 												$replace_val[$rkey] .= '<li><label><input type="radio" name="cftsearch[' . rawurlencode($key) . '][' . $rkey . '][]" value="' . esc_attr($metavalue) . '"' . $class . $checked . ' /> ';			
-												if ( $valueLabel[$j] ) $replace_val[$rkey] .= stripcslashes(trim($valueLabel[$j]));
+												if ( isset($valueLabel[$j]) ) $replace_val[$rkey] .= stripcslashes(trim($valueLabel[$j]));
 												else $replace_val[$rkey] .= stripcslashes($metavalue);
 												$replace_val[$rkey] .= '</label></li>';
 												$j++;
@@ -3723,10 +3723,10 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 											if ( in_array($metavalue, $default) && !$_REQUEST['cftsearch'][rawurlencode($key)][$rkey] )
 													$checked = ' checked="checked"';
 
-											if ( $_REQUEST['cftsearch'][rawurlencode($key)][$rkey][0] == $metaval ) $selected = ' selected="selected"';
+											if ( isset($_REQUEST['cftsearch']) && $_REQUEST['cftsearch'][rawurlencode($key)][$rkey][0] == $metaval ) $selected = ' selected="selected"';
 											else $selected = "";
 											$replace_val[$rkey] .= '<option value="' . esc_attr($metaval) . '"' . $selected . '>';			
-											if ( $valueLabel[$j] )
+											if ( isset($valueLabel[$j]) )
 												$replace_val[$rkey] .= stripcslashes(trim($valueLabel[$j]));
 											else
 												$replace_val[$rkey] .= stripcslashes($metaval);
@@ -3741,8 +3741,9 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 							if ( isset($options['shortcode_format_use_php'][$format]) )
 								$output = $this->EvalBuffer($output);
 							$key = preg_quote($key, '/');
-							$output = preg_replace('/\['.$key.'\](?!\[[0-9]+\])/', $replace_val[0], $output); 
-							$output = preg_replace('/\['.$key.'\]\[([0-9]+)\](?!\[\])/e', '$replace_val[${1}]', $output);
+							$output = preg_replace('/\['.$key.'\](?!\[[0-9]+\])/', $replace_val[0], $output);
+							$this->replace_val = $replace_val;
+							$output = preg_replace_callback('/\['.$key.'\]\[([0-9]+)\](?!\[\])/', array($this, 'search_custom_field_values_callback'), $output);
 						endforeach;
 					endforeach;
 				endfor;
@@ -3843,6 +3844,10 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 		endif;
 		
 		return do_shortcode(stripcslashes($output));
+	}
+	
+	function search_custom_field_values_callback ( $m ) {
+		return $this->replace_val[$m[1]];
 	}
 	
 	function custom_field_template_posts_where($where) {
@@ -4018,10 +4023,10 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 
 		if ( !$sql_limit ) return;
 		list($offset, $old_limit) = explode(',', $sql_limit);
-		$limit = (int)$_REQUEST['limit'];
-		if ( !$limit )
-			$limit = trim($old_limit);
+		$limit = isset($_REQUEST['limit']) ? (int)$_REQUEST['limit'] : trim($old_limit);
+
 		$wp_query->query_vars['posts_per_page'] = $limit;
+		$wp_query->query_vars['paged'] = isset($wp_query->query['paged']) ? $wp_query->query['paged'] : 1;
 		$offset = ($wp_query->query_vars['paged'] - 1) * $limit;
 		if ( $offset < 0 ) $offset = 0;
 
