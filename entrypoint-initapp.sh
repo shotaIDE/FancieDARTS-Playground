@@ -25,4 +25,4 @@ wp user create admin admin@example.com --role=administrator --user_pass=z --allo
 # テーマとプラグインの過不足を修正
 wp theme delete twentyfifteen twentyseventeen twentysixteen --allow-root
 wp plugin install wordpress-importer intuitive-custom-post-order backwpup custom-field-template wp-multibyte-patch user-activity-log wp-konami-code custom-post-type-ui --allow-root
-wp plugin deactivate backwpup user-activity-log --allow-root
+wp plugin deactivate backwpup user-activity-log wp-konami-code --allow-root
