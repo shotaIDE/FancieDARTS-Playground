@@ -133,7 +133,7 @@ function dp_get_infeed_ads($arr_params = array(
 	}
 }
 // ***********************************
-// DARTS: タクソノミーの説明を表示
+// for FancieDARTS [START]: タクソノミーの説明を表示
 // ***********************************
 $term = get_queried_object();
 $term_name = $term->name;
@@ -144,7 +144,7 @@ $term_code = sprintf('<div class="widget-content bottom clearfix"><div id="dprec
 	$term_description);
 echo $term_code;
 // ***********************************
-// DARTS: タクソノミーの説明を表示
+// for FancieDARTS [END]: タクソノミーの説明を表示
 // ***********************************
 /**
  * Show post list

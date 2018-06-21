@@ -1140,7 +1140,7 @@ function wp_title( $sep = '&raquo;', $display = true, $seplocation = '' ) {
 		$term = get_queried_object();
 		if ( $term ) {
 			$tax   = get_taxonomy( $term->taxonomy );
-			$title = single_term_title( $t_sep, false ); // for FancieDARTS
+			$title = single_term_title( $t_sep, false ); // for FancieDARTS: 各タクソノミー名だけを表示
 		}
 	}
 

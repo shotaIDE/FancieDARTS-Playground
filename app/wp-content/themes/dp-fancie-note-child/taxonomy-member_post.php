@@ -7,7 +7,7 @@ get_header();
 // show posts
 // **********************************
 if (have_posts()) :
-	include ("article-loop-member_post.php"); // DARTS: 記事ループ処理差し替え
+	include ("article-loop-member_post.php"); // for FancieDARTS: 記事ループ処理差し替え
 	// ***********************************
 	// Content bottom widget
 	// ***********************************
