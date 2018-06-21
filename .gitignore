@@ -7,7 +7,6 @@
 /sql/
 
 /app/wp-admin/
-/app/wp-includes/
 /app/*.pluginlist.*
 /app/backwpup_readme.txt
 /app/manifest.json
@@ -19,19 +18,22 @@
 /app/sitemap.xml
 /app/sitemap.xml.gz
 
-app/wp-content/*
-!app/wp-content/themes
-app/wp-content/themes/*
-!app/wp-content/themes/dp-fancie-note
-app/wp-content/themes/dp-fancie-note/*
-!app/wp-content/themes/dp-fancie-note/inc
-app/wp-content/themes/dp-fancie-note/inc/*
-!app/wp-content/themes/dp-fancie-note/inc/scr
-app/wp-content/themes/dp-fancie-note/inc/scr/*
-!app/wp-content/themes/dp-fancie-note/inc/scr/related_posts.php
-!app/wp-content/themes/dp-fancie-note-child
-!app/wp-content/plugins
-app/wp-content/plugins/*
-!app/wp-content/plugins/custom-field-template
-app/wp-content/plugins/custom-field-template/*
-!app/wp-content/plugins/custom-field-template/custom-field-template.php
+/app/wp-includes/*
+!/app/wp-includes/general-template.php
+
+/app/wp-content/*
+!/app/wp-content/themes
+/app/wp-content/themes/*
+!/app/wp-content/themes/dp-fancie-note
+/app/wp-content/themes/dp-fancie-note/*
+!/app/wp-content/themes/dp-fancie-note/inc
+/app/wp-content/themes/dp-fancie-note/inc/*
+!/app/wp-content/themes/dp-fancie-note/inc/scr
+/app/wp-content/themes/dp-fancie-note/inc/scr/*
+!/app/wp-content/themes/dp-fancie-note/inc/scr/related_posts.php
+!/app/wp-content/themes/dp-fancie-note-child
+!/app/wp-content/plugins
+/app/wp-content/plugins/*
+!/app/wp-content/plugins/custom-field-template
+/app/wp-content/plugins/custom-field-template/*
+!/app/wp-content/plugins/custom-field-template/custom-field-template.php
