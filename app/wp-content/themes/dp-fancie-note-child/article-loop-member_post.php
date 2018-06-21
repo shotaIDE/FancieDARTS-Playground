@@ -135,11 +135,10 @@ function dp_get_infeed_ads($arr_params = array(
 // ***********************************
 // DARTS: タクソノミーの説明を表示
 // ***********************************
-$term_info = get_term_by('slug', $term , $taxonomy);
-$term_name = $term_info->name;
-$term_description = term_description();
-// $term_description = $term_info->description;
-$term_code = sprintf('<div class="widget-content bottom clearfix"><div id="dprecentcustompostswidget-2" class="widget-box dp_recent_custom_posts_widget slider_fx"><h3 class="inside-title wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;"><span>About %s</span></h3>
+$term = get_queried_object();
+$term_name = $term->name;
+$term_description = term_description(); // 整形されたデータ取得のため、$term->description は利用しない
+$term_code = sprintf('<div class="widget-content bottom clearfix"><div id="dprecentcustompostswidget-2" class="widget-box dp_recent_custom_posts_widget slider_fx"><h3 class="inside-title wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;"><span>%s</span></h3>
 	<div class="entry entry-content" style="padding-left: 10px">%s</div></div></div>',
 	$term_name,
 	$term_description);
