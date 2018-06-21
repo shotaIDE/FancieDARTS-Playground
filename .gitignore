@@ -7,7 +7,6 @@
 /sql/
 
 /app/wp-admin/
-/app/wp-includes/
 /app/*.pluginlist.*
 /app/backwpup_readme.txt
 /app/manifest.json
@@ -18,6 +17,9 @@
 /app/readme.html
 /app/sitemap.xml
 /app/sitemap.xml.gz
+
+/app/wp-includes/*
+!/app/wp-includes/general-template.php
 
 app/wp-content/*
 !app/wp-content/themes
