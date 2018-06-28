@@ -17,7 +17,7 @@ services:
       - ./wordpress/php/xdebug.ini://usr/local/etc/php/conf.d/xdebug.ini
       - ./backup:/tmp/fanciedarts/data
       - ./entrypoint-initapp.sh:/tmp/fanciedarts/entrypoint-initapp.sh
-      - ./rewrite_after_upgrade.php:/tmp/fanciedarts/rewrite_after_upgrade.php
+      - ./tools/rewrite_after_upgrade.php:/tmp/fanciedarts/rewrite_after_upgrade.php
       - ./app:/var/www/html
     ports:
       - "80:80"

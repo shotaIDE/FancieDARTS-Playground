@@ -44,8 +44,8 @@ file_put_contents ($WP_THEMES_FANCIE_NOTE_CHILD . '/article-loop-member_tax.php'
         "\$term_name = \$term->name;"."\r\n".
         "\$term_description = term_description(); // 整形されたデータ取得のため、\$term->description は利用しない"."\r\n".
         "if (\$term_description !== '') {"."\r\n".
-        "	\$term_code = sprintf('<div class=\"widget-content bottom clearfix\"><div id=\"dprecentcustompostswidget-2\" class=\"widget-box dp_recent_custom_posts_widget slider_fx\"><h3 class=\"inside-title wow fadeInLeft\" style=\"visibility: visible; animation-name: fadeInLeft;\"><span>%s</span></h3>"."\r\n".
-        "		<div class=\"entry entry-content\" style=\"padding-left: 10px\">%s</div></div></div>',"."\r\n".
+        "	\$term_code = sprintf('<div class=\"widget-content bottom clearfix\"><div id=\"dprecentcustompostswidget-2\" class=\"widget-box dp_recent_custom_posts_widget slider_fx\"><h3 class=\"fancie_darts_taxonomy_name inside-title wow fadeInLeft\" style=\"visibility: visible; animation-name: fadeInLeft;\"><span>%s</span></h3>"."\r\n".
+        "		<div class=\"fancie_darts_taxonomy_description entry entry-content\" style=\"padding-left: 10px\">%s</div></div></div>',"."\r\n".
         "		\$term_name,"."\r\n".
         "		\$term_description);"."\r\n".
         "}"."\r\n".
@@ -110,10 +110,10 @@ $dst_str = preg_replace(
     "		\$image_id	= get_post_thumbnail_id();"."\n".
     "		\$image_data	= wp_get_attachment_image_src(\$image_id, array(\$width, \$height), true);"."\n".
     "		\$image_url 	= is_ssl() ? str_replace('http:', 'https:', \$image_data[0]) : \$image_data[0];"."\n".
-    "		\$img_tag	= '<img src=\"'.\$image_url.'\" class=\"alignnone\" alt=\"'.strip_tags(get_the_title()).'\" width=\"'.\$DARTS_MEMBER_IMG_WIDTH.'\" />';"."\n".
+    "		\$img_tag	= '<img src=\"'.\$image_url.'\" class=\"fancie_darts_member_image alignnone\" alt=\"'.strip_tags(get_the_title()).'\" width=\"'.\$DARTS_MEMBER_IMG_WIDTH.'\" />';"."\n".
     "		echo '<p>' . \$img_tag . '</p>'; ?>"."\n".
     ""."\n".
-    "	<table class=\"dp_sc_table tbl-em7g\">"."\n".
+    "	<table class=\"fancie_darts_member_description dp_sc_table tbl-em7g\">"."\n".
     "		<tbody>"."\n".
     "			<tr>"."\n".
     "				<th class=\"al-c\">Name</th>"."\n".

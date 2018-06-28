@@ -6,6 +6,8 @@
 /backup/
 /sql/
 
+/tools/settings_*.txt
+
 /app/wp-admin/
 /app/*.pluginlist.*
 /app/backwpup_readme.txt
