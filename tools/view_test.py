@@ -104,4 +104,7 @@ if __name__ == '__main__':
 
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(FancieDartsViewTest))
-    unittest.TextTestRunner().run(suite)
+    result = unittest.TextTestRunner().run(suite)
+
+    num_failed = len(result.errors) + len(result.failures)
+    sys.exit(num_failed)
