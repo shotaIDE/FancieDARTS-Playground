@@ -30,9 +30,9 @@ el1.send_keys(login_password)
 el1 = browser.find_element_by_id('wp-submit')
 el1.click()
 
-action_count = 0
+num_upgrade = 0
 
-while action_count < 3:
+while num_upgrade < 3:
     browser.get(SERVER_HOST + WP_PATH_UPGRADE)
 
     # WordPressの更新
@@ -40,7 +40,7 @@ while action_count < 3:
     wp_upgrade_button_text = el1.get_attribute('value')
     if wp_upgrade_button_text == '今すぐ更新':
         el1.click()
-        action_count += 1
+        num_upgrade += 1
         continue
 
     # プラグインの更新
@@ -49,7 +49,7 @@ while action_count < 3:
         el1.click()
         el1 = browser.find_element_by_id('upgrade-plugins')
         el1.click()
-        action_count += 1
+        num_upgrade += 1
         continue
     except:
         pass
@@ -60,7 +60,7 @@ while action_count < 3:
         el1.click()
         el1 = browser.find_element_by_id('upgrade-themes')
         el1.click()
-        action_count += 1
+        num_upgrade += 1
         continue
     except:
         pass
@@ -68,3 +68,6 @@ while action_count < 3:
     break
 
 browser.quit()
+
+is_upgrade = num_upgrade >= 1
+sys.exit(0 if is_upgrade else 1)
