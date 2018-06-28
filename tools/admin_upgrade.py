@@ -55,12 +55,15 @@ while action_count < 3:
         pass
 
     # テーマの更新
-    # TODO: テーマの更新部分実装
-    # try:
-    #     action_count += 1
-    #     continue
-    # except:
-    #     pass
+    try:
+        el1 = browser.find_element_by_id('themes-select-all')
+        el1.click()
+        el1 = browser.find_element_by_id('upgrade-themes')
+        el1.click()
+        action_count += 1
+        continue
+    except:
+        pass
 
     break
 
