@@ -4,22 +4,20 @@ import argparse
 
 from selenium import webdriver
 
-SETTINGS_FILE_PATH = "settings.txt"
-MAX_WAIT_TIME = 30 # [s]
-
-WP_PATH_ADMIN_TOP = "/wp-admin"
-WP_PATH_UPGRADE = "/wp-admin/update-core.php"
-
-settings = open(SETTINGS_FILE_PATH, 'r').readlines()
-chrome_driver_path = settings[0][:-1] # 改行の削除
-login_user = settings[1][:-1] # 改行の削除
-login_password = settings[2][:-1] # 改行の削除
-
 parser = argparse.ArgumentParser()
 parser.add_argument('server_host')
+parser.add_argument('settings_path')
 arguments = parser.parse_args()
 
 SERVER_HOST = arguments.server_host
+SETTINGS_PATH = arguments.settings_path
+WP_PATH_ADMIN_TOP = "/wp-admin"
+WP_PATH_UPGRADE = "/wp-admin/update-core.php"
+
+settings = open(SETTINGS_PATH, 'r').readlines()
+chrome_driver_path = settings[0][:-1] # 改行の削除
+login_user = settings[1][:-1] # 改行の削除
+login_password = settings[2][:-1] # 改行の削除
 
 browser = webdriver.Chrome(chrome_driver_path)
 
