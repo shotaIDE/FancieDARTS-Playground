@@ -23,12 +23,12 @@ browser = webdriver.Chrome(chrome_driver_path)
 
 browser.get(SERVER_HOST + WP_PATH_ADMIN_TOP)
 
-el1 = browser.find_element_by_id('user_login')
-el1.send_keys(login_user)
-el1 = browser.find_element_by_id('user_pass')
-el1.send_keys(login_password)
-el1 = browser.find_element_by_id('wp-submit')
-el1.click()
+element = browser.find_element_by_id('user_login')
+element.send_keys(login_user)
+element = browser.find_element_by_id('user_pass')
+element.send_keys(login_password)
+element = browser.find_element_by_id('wp-submit')
+element.click()
 
 num_upgrade = 0
 
@@ -36,19 +36,19 @@ while num_upgrade < 3:
     browser.get(SERVER_HOST + WP_PATH_UPGRADE)
 
     # WordPressの更新
-    el1 = browser.find_element_by_id('upgrade')
-    wp_upgrade_button_text = el1.get_attribute('value')
+    element = browser.find_element_by_id('upgrade')
+    wp_upgrade_button_text = element.get_attribute('value')
     if wp_upgrade_button_text == '今すぐ更新':
-        el1.click()
+        element.click()
         num_upgrade += 1
         continue
 
     # プラグインの更新
     try:
-        el1 = browser.find_element_by_id('plugins-select-all')
-        el1.click()
-        el1 = browser.find_element_by_id('upgrade-plugins')
-        el1.click()
+        element = browser.find_element_by_id('plugins-select-all')
+        element.click()
+        element = browser.find_element_by_id('upgrade-plugins')
+        element.click()
         num_upgrade += 1
         continue
     except:
@@ -56,10 +56,10 @@ while num_upgrade < 3:
 
     # テーマの更新
     try:
-        el1 = browser.find_element_by_id('themes-select-all')
-        el1.click()
-        el1 = browser.find_element_by_id('upgrade-themes')
-        el1.click()
+        element = browser.find_element_by_id('themes-select-all')
+        element.click()
+        element = browser.find_element_by_id('upgrade-themes')
+        element.click()
         num_upgrade += 1
         continue
     except:
