@@ -12,6 +12,11 @@ if (!$?) {
 
 # 本番環境：アップグレード
 python admin_upgrade.py 'http://192.168.10.70/fanciedarts' 'wordpress_settings_public.txt'
+if (!$?) {
+    # アップグレードなし
+    echo 'no upgrade is available in PUBLIC, end auto upgrader'
+    exit
+}
 
 # 本番環境：ファイル修正、開発環境のファイルコピーによる
 $myPath = Split-Path -Parent $MyInvocation.MyCommand.Path
