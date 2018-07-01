@@ -2,7 +2,7 @@
 python admin_upgrade.py 'http://localhost' 'test_settings_dev.txt'
 # 開発環境：ファイル修正、文字列置換スクリプトによる
 docker exec darts_wordpress_1 php /tmp/fanciedarts/rewrite_after_upgrade.php
-# 開発環境：自動テスト
+# 開発環境：ビューのテスト
 python view_test.py 'http://localhost' 'test_settings_dev.txt'
 if (!$?) {
     # テスト失敗
@@ -18,7 +18,7 @@ if (!$?) {
     exit
 }
 
-# 本番環境：ファイル修正、開発環境のファイルコピーによる
+# 本番環境：デプロイ、開発環境のファイルコピーによる
 $myPath = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $myPath
 $uploadSettingsFilePath = $myPath + '\deploy_settings.txt'
@@ -40,7 +40,7 @@ foreach ($file in $files) {
     cp $srcFile $dstFile
 } 
 
-# 開発環境：自動テスト
+# 開発環境：ビューのテスト
 python view_test.py 'http://192.168.10.70/fanciedarts' 'test_settings_public.txt'
 if (!$?) {
     # テスト失敗
