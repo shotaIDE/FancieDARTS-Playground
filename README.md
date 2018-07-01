@@ -36,8 +36,8 @@ WordPress本体やテーマ、プラグインの更新が来ている場合は�
 Selenium用のChromeDriverを[公式サイト](http://chromedriver.chromium.org/downloads)から入手し、任意の場所に設置する
 
 自動テスト用環境設定ファイルを作成する
-- `darts/tools/wordpress_settings.txt.sample` を `darts/tools/wordpress_settings_dev.txt` としてコピーし、ChromeDriverパスと開発環境でのWordPressの管理画面ログインユーザ名(admin)とパスワード(z)を記入する
-- `darts/tools/wordpress_settings.txt.sample` を `darts/tools/wordpress_settings_public.txt` としてコピーし、ChromeDriverパスと本番環境でのWordPressの管理画面ログインユーザ名とパスワードを記入する
+- `darts/tools/test_settings.txt.sample` を `darts/tools/test_settings_dev.txt` としてコピーし、ChromeDriverパスと開発環境でのWordPressの管理画面ログインユーザ名(admin)とパスワード(z)を記入する
+- `darts/tools/test_settings.txt.sample` を `darts/tools/test_settings_public.txt` としてコピーし、ChromeDriverパスと本番環境でのWordPressの管理画面ログインユーザ名とパスワードを記入する
 
 自動デプロイ用環境設定ファイルを作成する
 - `darts/tools/upload_settings.txt.sample` を `darts/tools/upload_settings.txt` としてコピーし、`darts/app` のフルパスを記入する

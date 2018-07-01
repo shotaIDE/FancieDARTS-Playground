@@ -1,9 +1,9 @@
 # 開発環境：アップグレード
-python admin_upgrade.py 'http://localhost' 'wordpress_settings_dev.txt'
+python admin_upgrade.py 'http://localhost' 'test_settings_dev.txt'
 # 開発環境：ファイル修正、文字列置換スクリプトによる
 docker exec darts_wordpress_1 php /tmp/fanciedarts/rewrite_after_upgrade.php
 # 開発環境：自動テスト
-python view_test.py 'http://localhost' 'wordpress_settings_dev.txt'
+python view_test.py 'http://localhost' 'test_settings_dev.txt'
 if (!$?) {
     # テスト失敗
     echo '[ERROR] test failed in develop'
@@ -11,7 +11,7 @@ if (!$?) {
 }
 
 # 本番環境：アップグレード
-python admin_upgrade.py 'http://192.168.10.70/fanciedarts' 'wordpress_settings_public.txt'
+python admin_upgrade.py 'http://192.168.10.70/fanciedarts' 'test_settings_public.txt'
 if (!$?) {
     # アップグレードなし
     echo 'no upgrade is available in PUBLIC, end auto upgrader'
@@ -41,7 +41,7 @@ foreach ($file in $files) {
 } 
 
 # 開発環境：自動テスト
-python view_test.py 'http://192.168.10.70/fanciedarts' 'wordpress_settings_public.txt'
+python view_test.py 'http://192.168.10.70/fanciedarts' 'test_settings_public.txt'
 if (!$?) {
     # テスト失敗
     echo '[ERROR] test failed in PUBLIC'
