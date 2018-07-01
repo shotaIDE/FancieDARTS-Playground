@@ -6,8 +6,7 @@
 /backup/
 /sql/
 
-/tools/upload_settings*.txt
-/tools/wordpress_settings*.txt
+/tools/test_settings*.txt
 
 /app/wp-admin/
 /app/*.pluginlist.*
