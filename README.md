@@ -11,8 +11,8 @@
 さらに、アーカイブのトップに格納されている `*.sql.gz` を、 `darts/sql` 内に移動する
 
 `darts/wp-config.php` を参考に、コンテナの環境変数ファイルを作成する
-- `darts/db.env.sample` を `darts/db.env` としてコピーし、データベース名とユーザ名・パスワードを記入する。
-- `darts/wordpress.env.sample` を `darts/wordpress.env` としてコピーし、データベース名とユーザ名・パスワードを記入する。
+- `darts/db.env.sample` を `darts/db.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
+- `darts/wordpress.env.sample` を `darts/wordpress.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
 
 Dockerを起動し、以下コマンドでDockerコンテナを起動する
 
