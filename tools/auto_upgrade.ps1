@@ -21,7 +21,7 @@ if (!$?) {
 # 本番環境：ファイル修正、開発環境のファイルコピーによる
 $myPath = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $myPath
-$uploadSettingsFilePath = $myPath + '\upload_settings.txt'
+$uploadSettingsFilePath = $myPath + '\deploy_settings.txt'
 $uploadSettingsFile = New-Object System.IO.StreamReader($uploadSettingsFilePath, [System.Text.Encoding]::GetEncoding("utf-8"))
 $localAppDir = $uploadSettingsFile.ReadLine()
 
