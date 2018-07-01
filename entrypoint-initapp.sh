@@ -11,7 +11,7 @@ mv wp-cli.phar /usr/local/bin/wp
 cd /var/www/html
 mv .htaccess .htaccess.back # 初期状態のファイルを退避
 mv wp-config.php wp-config.php.back # Dockerにより生成されたファイルを退避
-cp -Rf /tmp/fanciedarts/data/* ./ # バックアップデータをコピー
+cp -Rf /tmp/wordpress/data/* ./ # バックアップデータをコピー
 mv -f .htaccess.back .htaccess # 退避ファイルをリストア
 mv -f wp-config.php.back wp-config.php # 退避ファイルをリストア
 

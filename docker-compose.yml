@@ -15,9 +15,9 @@ services:
     build: ./wordpress
     volumes:
       - ./wordpress/php/xdebug.ini://usr/local/etc/php/conf.d/xdebug.ini
-      - ./backup:/tmp/fanciedarts/data
-      - ./entrypoint-initapp.sh:/tmp/fanciedarts/entrypoint-initapp.sh
-      - ./tools/rewrite_after_upgrade.php:/tmp/fanciedarts/rewrite_after_upgrade.php
+      - ./backup:/tmp/wordpress/data
+      - ./entrypoint-initapp.sh:/tmp/wordpress/entrypoint-initapp.sh
+      - ./tools/rewrite_after_upgrade.php:/tmp/wordpress/rewrite_after_upgrade.php
       - ./app:/var/www/html
     ports:
       - "80:80"
