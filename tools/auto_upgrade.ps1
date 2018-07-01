@@ -14,6 +14,12 @@ if (!$?) {
 python admin_upgrade.py 'http://192.168.10.70/fanciedarts' 'wordpress_settings_public.txt'
 
 # 本番環境：ファイル修正、開発環境のファイルコピーによる
+$myPath = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $myPath
+$uploadSettingsFilePath = $myPath + '\upload_settings.txt'
+$uploadSettingsFile = New-Object System.IO.StreamReader($uploadSettingsFilePath, [System.Text.Encoding]::GetEncoding("utf-8"))
+$localAppDir = $uploadSettingsFile.ReadLine()
+
 $files = @(
     '\wp-includes\general-template.php',
     '\wp-content\themes\dp-fancie-note-child\taxonomy-member_post.php',
@@ -24,7 +30,7 @@ $files = @(
     '\wp-content\plugins\custom-field-template\custom-field-template.php'
 )
 foreach ($file in $files) {
-    $srcFile = 'E:\works\darts\app' + $file
+    $srcFile = $localAppDir + $file
     $dstFile = '\\192.168.10.70\fanciedarts' + $file
     cp $srcFile $dstFile
 } 
