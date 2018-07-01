@@ -11,6 +11,7 @@
 さらに、アーカイブのトップに格納されている `*.sql.gz` を、 `darts/sql` 内に移動する
 
 `darts/wp-config.php` を参考に、コンテナの環境変数ファイルを作成する
+
 - `darts/db.env.sample` を `darts/db.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
 - `darts/wordpress.env.sample` を `darts/wordpress.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
 
@@ -36,10 +37,12 @@ WordPress本体やテーマ、プラグインの更新が来ている場合は�
 Selenium用のChromeDriverを[公式サイト](http://chromedriver.chromium.org/downloads)から入手し、任意の場所に設置する
 
 自動テスト用環境設定ファイルを作成する
+
 - `darts/tools/test_settings.txt.sample` を `darts/tools/test_settings_dev.txt` としてコピーし、ChromeDriverパスと開発環境でのWordPressの管理画面ログインユーザ名(admin)とパスワード(z)を記入する
 - `darts/tools/test_settings.txt.sample` を `darts/tools/test_settings_public.txt` としてコピーし、ChromeDriverパスと本番環境でのWordPressの管理画面ログインユーザ名とパスワードを記入する
 
 自動デプロイ用環境設定ファイルを作成する
+
 - `darts/tools/deploy_settings.txt.sample` を `darts/tools/deploy_settings.txt` としてコピーし、`darts/app` のフルパスを記入する
 
 Dockerコンテナを起動したのち、以下コマンドでアップグレードを行う
