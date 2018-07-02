@@ -21,21 +21,11 @@
 /app/sitemap.xml.gz
 
 /app/wp-includes/*
-!/app/wp-includes/general-template.php
-
 /app/wp-content/*
 !/app/wp-content/themes
 /app/wp-content/themes/*
-!/app/wp-content/themes/dp-fancie-note
-/app/wp-content/themes/dp-fancie-note/*
-!/app/wp-content/themes/dp-fancie-note/inc
-/app/wp-content/themes/dp-fancie-note/inc/*
-!/app/wp-content/themes/dp-fancie-note/inc/scr
-/app/wp-content/themes/dp-fancie-note/inc/scr/*
-!/app/wp-content/themes/dp-fancie-note/inc/scr/related_posts.php
 !/app/wp-content/themes/dp-fancie-note-child
-!/app/wp-content/plugins
-/app/wp-content/plugins/*
-!/app/wp-content/plugins/custom-field-template
-/app/wp-content/plugins/custom-field-template/*
-!/app/wp-content/plugins/custom-field-template/custom-field-template.php
+/app/wp-content/themes/dp-fancie-note-child/article-loop-member_tax.php
+/app/wp-content/themes/dp-fancie-note-child/single-member.php
+/app/wp-content/themes/dp-fancie-note-child/taxonomy-member_office.php
+/app/wp-content/themes/dp-fancie-note-child/taxonomy-member_post.php
