@@ -41,7 +41,7 @@ if (!$?) {
 
 # 開発環境：ファイル修正、文字列置換スクリプトによる
 WriteLog 'PhpRewrite' 'rewriting and generating files in dev ...'
-docker exec darts_wordpress_1 php /tmp/fanciedarts/rewrite_after_upgrade.php
+docker exec darts_wordpress_1 php /tmp/wordpress/rewrite_after_upgrade.php
 
 # 開発環境：自動テスト
 WriteLog 'ViewTest' 'testing views in dev ...'
