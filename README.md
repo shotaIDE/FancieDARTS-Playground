@@ -25,7 +25,7 @@ Dockerを起動し、以下コマンドでDockerコンテナを起動する
 WordPressコンテナの初期化処理が終了したら、さらに以下コマンドで独自の初期化処理を行う
 
 ```
-> docker exec darts_wordpress_1 /tmp/wordpress/entrypoint-initapp.sh
+> docker exec darts_wordpress_1 bash /tmp/wordpress/entrypoint-initapp.sh
 ```
 
 ブラウザで http://localhost/ を開き、ページが表示されたら成功
