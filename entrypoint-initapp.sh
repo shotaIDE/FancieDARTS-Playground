@@ -34,9 +34,7 @@ wp plugin install --allow-root \
     custom-field-template \
     wp-multibyte-patch \
     user-activity-log \
-    wp-konami-code \
     custom-post-type-ui
 wp plugin deactivate --allow-root \
     backwpup \
-    user-activity-log \
-    wp-konami-code
+    user-activity-log
