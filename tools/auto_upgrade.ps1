@@ -83,7 +83,7 @@ foreach ($file in $uploadFiles) {
 }
 WriteLog 'AutoDeploy' 'deploy to PUBLIC succeeded !'
 
-# 開発環境：ビューのテスト
+# 本番環境：ビューのテスト
 WriteLog 'ViewTest' 'testing views in PUBLIC ...'
 python view_test.py 'http://192.168.10.70/fanciedarts' 'test_settings_public.txt'
 if (!$?) {
