@@ -1,10 +1,9 @@
 version: '3'
 services:
   db:
-    image: mysql:5.7
+    image: mariadb
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
-    restart: always
     env_file: ./db.env
     environment:
       MYSQL_ROOT_PASSWORD: z
@@ -14,14 +13,14 @@ services:
       - db
     build: ./wordpress
     volumes:
-      - ./wordpress/php/xdebug.ini://usr/local/etc/php/conf.d/xdebug.ini
-      - ./backup:/tmp/fanciedarts/data
-      - ./entrypoint-initapp.sh:/tmp/fanciedarts/entrypoint-initapp.sh
-      - ./rewrite_after_upgrade.php:/tmp/fanciedarts/rewrite_after_upgrade.php
+      # - ./wordpress/php/xdebug.ini://usr/local/etc/php/conf.d/xdebug.ini
+      - ./backup:/tmp/wordpress/data
+      - ./entrypoint-initapp.sh:/tmp/wordpress/entrypoint-initapp.sh
+      - ./tools/rewrite_after_upgrade.php:/tmp/wordpress/rewrite_after_upgrade.php
       - ./app:/var/www/html
     ports:
       - "80:80"
     env_file: ./wordpress.env
     environment:
       WORDPRESS_DB_HOST: db:3306
-      XDEBUG_CONFIG: "remote_host={host_ip}"
+      # XDEBUG_CONFIG: "remote_host={host_ip}"

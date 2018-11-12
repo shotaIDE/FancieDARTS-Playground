@@ -44,8 +44,8 @@ file_put_contents ($WP_THEMES_FANCIE_NOTE_CHILD . '/article-loop-member_tax.php'
         "\$term_name = \$term->name;"."\r\n".
         "\$term_description = term_description(); // 整形されたデータ取得のため、\$term->description は利用しない"."\r\n".
         "if (\$term_description !== '') {"."\r\n".
-        "	\$term_code = sprintf('<div class=\"widget-content bottom clearfix\"><div id=\"dprecentcustompostswidget-2\" class=\"widget-box dp_recent_custom_posts_widget slider_fx\"><h3 class=\"inside-title wow fadeInLeft\" style=\"visibility: visible; animation-name: fadeInLeft;\"><span>%s</span></h3>"."\r\n".
-        "		<div class=\"entry entry-content\" style=\"padding-left: 10px\">%s</div></div></div>',"."\r\n".
+        "	\$term_code = sprintf('<div class=\"widget-content bottom clearfix\"><div id=\"dprecentcustompostswidget-2\" class=\"widget-box dp_recent_custom_posts_widget slider_fx\"><h3 class=\"fancie_darts_taxonomy_name inside-title wow fadeInLeft\" style=\"visibility: visible; animation-name: fadeInLeft;\"><span>%s</span></h3>"."\r\n".
+        "		<div class=\"fancie_darts_taxonomy_description entry entry-content\" style=\"padding-left: 10px\">%s</div></div></div>',"."\r\n".
         "		\$term_name,"."\r\n".
         "		\$term_description);"."\r\n".
         "}"."\r\n".
@@ -68,6 +68,12 @@ $dst_str = str_replace(
     "// ***********************************"."\n".
     "// for FancieDARTS [START]: 社員情報のカスタムフィールド表示のHTML生成"."\n".
     "// ***********************************"."\n".
+    "\$member_notation = post_custom(\$DARTS_MEMBER_TAX_NOTATION);"."\n".
+    "\$member_pronounciation = post_custom(\$DARTS_MEMBER_TAX_PRONOUNCIATION);"."\n".
+    "\$member_joined_raw = post_custom(\$DARTS_MEMBER_TAX_JOINED);"."\n".
+    "if (\$member_joined_raw) {"."\n".
+    "	\$member_joined = date('d/m/Y', strtotime(\$member_joined_raw));"."\n".
+    "}"."\n".
     "\$member_post_list = get_the_terms(\$post->ID, \$DARTS_MEMBER_TAX_POST);"."\n".
     "asort(\$member_post_list);"."\n".
     "\$html_member_post_list = \"\";"."\n".
@@ -105,36 +111,38 @@ $dst_str = preg_replace(
     // 置換後
     "// Show eyecatch image"."\n".
     "		// ***********************************"."\n".
-    "		// for FancieDARTS [START]: アイキャッチ画像を指定サイズで表示"."\n".
+    "		// for FancieDARTS [START]: 指定サイズでアイキャッチ画像を表示し、社員テンプレート情報を表示"."\n".
     "		// ***********************************"."\n".
     "		\$image_id	= get_post_thumbnail_id();"."\n".
     "		\$image_data	= wp_get_attachment_image_src(\$image_id, array(\$width, \$height), true);"."\n".
     "		\$image_url 	= is_ssl() ? str_replace('http:', 'https:', \$image_data[0]) : \$image_data[0];"."\n".
-    "		\$img_tag	= '<img src=\"'.\$image_url.'\" class=\"alignnone\" alt=\"'.strip_tags(get_the_title()).'\" width=\"'.\$DARTS_MEMBER_IMG_WIDTH.'\" />';"."\n".
-    "		echo '<p>' . \$img_tag . '</p>'; ?>"."\n".
+    "		\$img_tag	= '<img src=\"'.\$image_url.'\" class=\"fancie_darts_member_image alignnone\" alt=\"'.strip_tags(get_the_title()).'\" width=\"'.\$DARTS_MEMBER_IMG_WIDTH.'\" />';"."\n".
+    "		echo '<p>' . \$img_tag . '</p>';"."\n".
     ""."\n".
-    "	<table class=\"dp_sc_table tbl-em7g\">"."\n".
-    "		<tbody>"."\n".
-    "			<tr>"."\n".
-    "				<th class=\"al-c\">Name</th>"."\n".
-    "				<td><?php echo post_custom(\$DARTS_MEMBER_TAX_NOTATION); ?>（<?php echo post_custom(\$DARTS_MEMBER_TAX_PRONOUNCIATION); ?>）</td>"."\n".
-    "			</tr>"."\n".
-    "			<tr>"."\n".
-    "				<th class=\"al-c\">Joined</th>"."\n".
-    "				<td><?php echo date(\"d/m/Y\", strtotime(post_custom(\$DARTS_MEMBER_TAX_JOINED))); ?></td>"."\n".
-    "			</tr>"."\n".
-    "			<tr>"."\n".
-    "				<th class=\"al-c\">Office</th>"."\n".
-    "				<td><?php echo \$html_member_office_list; ?></td>"."\n".
-    "			</tr>"."\n".
-    "			<tr>"."\n".
-    "				<th class=\"al-c\">Post</th>"."\n".
-    "				<td><?php echo \$html_member_post_list; ?></td>"."\n".
-    "			</tr>"."\n".
-    "		</tbody>"."\n".
-    "	</table><?php"."\n".
+    "		if (\$member_notation || \$member_joined || \$html_member_office_list || \$html_member_post_list) {"."\n".
+    "			\$member_template_info_code = '<table class=\"fancie_darts_member_description dp_sc_table tbl-em7g\"><tbody>';"."\n".
+    "			if (\$member_notation) {"."\n".
+    "				\$member_template_info_code .= '<tr><th class=\"al-c\">Name</th>'"."\n".
+    "					. '<td>'"."\n".
+    "						. \$member_notation"."\n".
+    "						. ((\$member_pronounciation) ? '（' . \$member_pronounciation . '）' : '' )"."\n".
+    "					. '</td>'"."\n".
+    "					. '</tr>';"."\n".
+    "			}"."\n".
+    "			if (\$member_joined) {"."\n".
+    "				\$member_template_info_code .= '<tr><th class=\"al-c\">Joined</th>' . '<td>' . \$member_joined . '</td></tr>';"."\n".
+    "			}"."\n".
+    "			if (\$html_member_office_list) {"."\n".
+    "				\$member_template_info_code .= '<tr><th class=\"al-c\">Office</th>' . '<td>' . \$html_member_office_list . '</td></tr>';"."\n".
+    "			}"."\n".
+    "			if (\$html_member_post_list) {"."\n".
+    "				\$member_template_info_code .= '<tr><th class=\"al-c\">Post</th>' . '<td>' . \$html_member_post_list . '</td></tr>';"."\n".
+    "			}"."\n".
+    "			\$member_template_info_code .= '</tbody></table>';"."\n".
+    "			echo \$member_template_info_code;"."\n".
+    "		}"."\n".
     "		// ***********************************"."\n".
-    "		// for FancieDARTS [END]: アイキャッチ画像を指定サイズで表示"."\n".
+    "		// for FancieDARTS [END]: 指定サイズでアイキャッチ画像を表示し、社員テンプレート情報を表示"."\n".
     "		// ***********************************"."\n".
     "		// Content"."\n",
     // 対象文字列

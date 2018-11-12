@@ -11,7 +11,7 @@ mv wp-cli.phar /usr/local/bin/wp
 cd /var/www/html
 mv .htaccess .htaccess.back # 初期状態のファイルを退避
 mv wp-config.php wp-config.php.back # Dockerにより生成されたファイルを退避
-cp -Rf /tmp/fanciedarts/data/* ./ # バックアップデータをコピー
+cp -Rf /tmp/wordpress/data/* ./ # バックアップデータをコピー
 mv -f .htaccess.back .htaccess # 退避ファイルをリストア
 mv -f wp-config.php.back wp-config.php # 退避ファイルをリストア
 
@@ -23,6 +23,18 @@ wp rewrite flush --allow-root
 wp user create admin admin@example.com --role=administrator --user_pass=z --allow-root
 
 # テーマとプラグインの過不足を修正
-wp theme delete twentyfifteen twentyseventeen twentysixteen --allow-root
-wp plugin install wordpress-importer intuitive-custom-post-order backwpup custom-field-template wp-multibyte-patch user-activity-log wp-konami-code custom-post-type-ui --allow-root
-wp plugin deactivate backwpup user-activity-log wp-konami-code --allow-root
+wp theme delete --allow-root \
+    twentyfifteen \
+    twentyseventeen \
+    twentysixteen 
+wp plugin install --allow-root \
+    wordpress-importer \
+    intuitive-custom-post-order \
+    backwpup \
+    custom-field-template \
+    wp-multibyte-patch \
+    user-activity-log \
+    custom-post-type-ui
+wp plugin deactivate --allow-root \
+    backwpup \
+    user-activity-log
