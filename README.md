@@ -22,7 +22,8 @@ Dockerを起動し、以下コマンドでDockerコンテナを起動する
 > docker-compose up
 ```
 
-WordPressコンテナの初期化処理が終了したら、さらに以下コマンドで独自の初期化処理を行う
+WordPressコンテナの初期化処理が終了したら、さらに以下コマンドで独自の初期化処理を行う  
+※クローン時の設定で改行コードがCR+LFになっている場合は上手く動かないので、LFに修正する
 
 ```
 > docker exec darts_wordpress_1 bash /tmp/wordpress/entrypoint-initapp.sh
