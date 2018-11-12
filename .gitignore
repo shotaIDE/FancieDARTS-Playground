@@ -1,4 +1,3 @@
-
 *~
 *.log
 
@@ -7,25 +6,3 @@
 /sql/
 
 /tools/test_settings*.txt
-
-/app/wp-admin/
-/app/*.pluginlist.*
-/app/backwpup_readme.txt
-/app/manifest.json
-
-/app/.htaccess
-/app/*.php
-/app/license.txt
-/app/readme.html
-/app/sitemap.xml
-/app/sitemap.xml.gz
-
-/app/wp-includes/*
-/app/wp-content/*
-!/app/wp-content/themes
-/app/wp-content/themes/*
-!/app/wp-content/themes/dp-fancie-note-child
-/app/wp-content/themes/dp-fancie-note-child/article-loop-member_tax.php
-/app/wp-content/themes/dp-fancie-note-child/single-member.php
-/app/wp-content/themes/dp-fancie-note-child/taxonomy-member_office.php
-/app/wp-content/themes/dp-fancie-note-child/taxonomy-member_post.php
