@@ -28,13 +28,15 @@ wp theme delete --allow-root \
     twentyseventeen \
     twentysixteen 
 wp plugin install --allow-root \
-    wordpress-importer \
-    intuitive-custom-post-order \
+    all-in-one-event-calendar \
     backwpup \
     custom-field-template \
-    wp-multibyte-patch \
+    custom-post-type-ui \
+    intuitive-custom-post-order \
+    media-from-ftp \
     user-activity-log \
-    custom-post-type-ui
+    wordpress-importer \
+    wp-multibyte-patch
 wp plugin deactivate --allow-root \
     backwpup \
     user-activity-log
