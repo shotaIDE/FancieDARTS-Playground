@@ -7,13 +7,9 @@ $appDir = $rootDir + '\app'
 
 function SetUp() {
     start-transcript $logFilePath -append
-    Set-Location $rootDir
-    docker-compose up -d
 }
 
 function TearDown() {
-    Set-Location $rootDir
-    docker-compose stop
     stop-transcript
 }
 
