@@ -29,7 +29,7 @@ WordPressコンテナの初期化処理が終了したら、さらに以下コ�
 > docker exec darts_wordpress_1 bash /tmp/wordpress/entrypoint-initapp.sh
 ```
 
-ブラウザで https://localhost/wp-admin からログインし、パーマリンクを変更を加えずに保存する
+ブラウザで http://localhost:10780/wp-admin/ からログインし、パーマリンクを変更を加えずに保存する
 
 ## アップグレード処理
 

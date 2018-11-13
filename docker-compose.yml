@@ -4,6 +4,8 @@ services:
     image: mariadb
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - "10736:3306"
     env_file: ./db.env
     environment:
       MYSQL_ROOT_PASSWORD: z
@@ -19,7 +21,7 @@ services:
       - ./tools/rewrite_after_upgrade.php:/tmp/wordpress/rewrite_after_upgrade.php
       - ./app:/var/www/html
     ports:
-      - "80:80"
+      - "10780:80"
     env_file: ./wordpress.env
     environment:
       WORDPRESS_DB_HOST: db:3306
