@@ -17,8 +17,8 @@ mv -f wp-config.php.back wp-config.php # 退避ファイルをリストア
 
 # WordPressを開発環境に適用
 wp option update blogname 'DARTS-Dev' --allow-root
-wp option update siteurl 'http://localhost' --allow-root
-wp option update home 'http://localhost' --allow-root
+wp option update siteurl 'http://localhost:10780' --allow-root
+wp option update home 'http://localhost:10780' --allow-root
 wp rewrite flush --allow-root
 wp user create admin admin@example.com --role=administrator --user_pass=z --allow-root
 
