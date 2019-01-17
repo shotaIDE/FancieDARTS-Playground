@@ -8,7 +8,7 @@
 
 本番DARTSの管理画面にログインし、「BackWPup」＞「バックアップ」からバックアップアーカイブをダウンロードする
 
-アーカイブを解凍し、`wp-contents/`の中身をリポジトリの`app/wp-contents/`に移動する
+アーカイブを解凍し、`wp-content/`の中身をリポジトリの`app/fanciedarts/wp-content/`に移動する
 
 さらに、アーカイブのトップに格納されている `*.sql.gz` を、 `darts/sql` 内に移動する
 
