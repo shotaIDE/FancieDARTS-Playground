@@ -34,6 +34,7 @@ docker run --rm -it \
     --volumes-from=fanciedarts-web \
     --volume="$PROJECT_HOME_DIR/entrypoint-initapp.sh:/tmp/entrypoint-initapp.sh" \
     --workdir="/var/www/html/fanciedarts" \
+    --env-file="./db.env" \
     --net=container:fanciedarts-web \
     wordpress:cli \
     sh /tmp/entrypoint-initapp.sh
