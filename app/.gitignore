@@ -1,4 +1,5 @@
 *.log
+
 /fanciedarts/wp-config.php
 /fanciedarts/wp-content/advanced-cache.php
 /fanciedarts/wp-content/backup-db/
