@@ -23,7 +23,5 @@ services:
       - ./app/fanciedarts:/var/www/html/fanciedarts
     ports:
       - "10780:80"
-    env_file: ./wordpress.env
-    environment:
-      WORDPRESS_DB_HOST: db:3306
+    # environment:
       # XDEBUG_CONFIG: "remote_host={host_ip}"
