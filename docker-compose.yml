@@ -2,6 +2,7 @@ version: '3'
 services:
   db:
     image: mariadb
+    container_name: fanciedarts-db
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
     ports:
@@ -14,15 +15,13 @@ services:
     depends_on:
       - db
     build: ./wordpress
+    image: fanciedarts/web
+    container_name: fanciedarts-web
     volumes:
       # - ./wordpress/php/xdebug.ini://usr/local/etc/php/conf.d/xdebug.ini
-      - ./backup:/tmp/wordpress/data
-      - ./entrypoint-initapp.sh:/tmp/wordpress/entrypoint-initapp.sh
       - ./tools/rewrite_after_upgrade.php:/tmp/wordpress/rewrite_after_upgrade.php
-      - ./app:/var/www/html
+      - ./app/fanciedarts:/var/www/html/fanciedarts
     ports:
       - "10780:80"
-    env_file: ./wordpress.env
-    environment:
-      WORDPRESS_DB_HOST: db:3306
+    # environment:
       # XDEBUG_CONFIG: "remote_host={host_ip}"
