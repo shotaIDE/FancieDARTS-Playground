@@ -1,4 +1,4 @@
-# DARTS on Fancie NOTE by DigiPress
+# Fancie DARTS
 
 ## 開発環境構築
 
