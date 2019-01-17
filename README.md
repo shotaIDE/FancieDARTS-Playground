@@ -2,34 +2,47 @@
 
 ## 開発環境構築
 
-リポジトリをクローンし、親フォルダの名前を `darts` に変更する
+開発用PCにDockerの環境を用意する
 
-管理画面にログインし、「BackWPup」＞「バックアップ」からバックアップアーカイブをダウンロードする
+リポジトリを開発用PCにクローンする
 
-アーカイブを解凍し、中身を `darts/backup` に移動する
+本番DARTSの管理画面にログインし、「BackWPup」＞「バックアップ」からバックアップアーカイブをダウンロードする
+
+アーカイブを解凍し、`wp-contents/`の中身をリポジトリの`app/wp-contents/`に移動する
 
 さらに、アーカイブのトップに格納されている `*.sql.gz` を、 `darts/sql` 内に移動する
 
-`darts/wp-config.php` を参考に、コンテナの環境変数ファイルを作成する
+サンプルファイルを元に開発用の環境変数ファイルを作成する
 
 - `darts/db.env.sample` を `darts/db.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
 - `darts/wordpress.env.sample` を `darts/wordpress.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
 
-Dockerを起動し、以下コマンドでDockerコンテナを起動する
+以下コマンドでDockerコンテナを起動する
 
 ```
-> cd ${darts}
-> docker-compose up
+cd ${ClonedDir}
+docker-compose up
 ```
 
 WordPressコンテナの初期化処理が終了したら、さらに以下コマンドで独自の初期化処理を行う  
-※クローン時の設定で改行コードがCR+LFになっている場合は上手く動かないので、LFに修正する
+_クローン時の設定で改行コードがCR+LFになっている場合は上手く動かないので、LFに修正する_
 
 ```
-> docker exec darts_wordpress_1 bash /tmp/wordpress/entrypoint-initapp.sh
+cd ${ClonedDir}
+PROJECT_HOME_DIR=`pwd`
+docker run --rm -it \
+    --volumes-from=fanciedarts-web \
+    --volume="$PROJECT_HOME_DIR/entrypoint-initapp.sh:/tmp/entrypoint-initapp.sh" \
+    --workdir="/var/www/html/fanciedarts" \
+    --net=container:fanciedarts-web \
+    wordpress:cli \
+    sh /tmp/entrypoint-initapp.sh
 ```
 
-ブラウザで http://localhost:10780/wp-admin/ からログインし、パーマリンクを変更を加えずに保存する
+ブラウザで http://localhost:10780/fanciedarts/wp-admin/ からログインし、設定＞パーマリンク設定から何も変更せずに「変更を保存」ボタンをクリックする  
+これにより、リンクを付け替え処理を実行される
+
+最後に http://localhost:10780/fanciedarts にアクセスし、正常に閲覧できるかを確かめる
 
 ## アップグレード処理
 
