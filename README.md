@@ -40,10 +40,7 @@ docker run --rm -it \
     sh /tmp/entrypoint-initapp.sh
 ```
 
-ブラウザで http://localhost:10780/fanciedarts/wp-admin/ からログインし、設定＞パーマリンク設定から何も変更せずに「変更を保存」ボタンをクリックする  
-これにより、リンクを付け替え処理を実行される
-
-最後に http://localhost:10780/fanciedarts にアクセスし、正常に閲覧できるかを確かめる
+ブラウザで http://localhost:10780/fanciedarts にアクセスし、正常に閲覧できるかを確かめる
 
 ## アップグレード処理
 
