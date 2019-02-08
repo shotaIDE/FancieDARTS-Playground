@@ -23,4 +23,4 @@ wp user create admin admin@example.com --role=administrator --user_pass=z
 # 開発環境用にプラグインの有効状態を変更
 wp plugin deactivate \
     backwpup \
-    user-activity-log
+    wp-content-copy-protection
