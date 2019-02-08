@@ -17,14 +17,17 @@
 - `darts/db.env.sample` を `darts/db.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
 - `darts/wordpress.env.sample` を `darts/wordpress.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
 
-以下コマンドでDockerコンテナを起動する
+以下コマンドでコンテナを起動する
 
 ```
 cd ${ClonedDir}
-docker-compose up
+docker-compose stop
+docker-compose rm -f
+rm app/fanciedarts/wp-config.php
+docker-compose up -d
 ```
 
-WordPressコンテナの初期化処理が終了したら、さらに以下コマンドで独自の初期化処理を行う  
+コンテナの初回起動時はDBのデータ投入処理が行われるため、1分程度待ったのち以下コマンドでWordPressサイトの初期化処理を行う  
 _クローン時の設定で改行コードがCR+LFになっている場合は上手く動かないので、LFに修正する_
 
 ```
