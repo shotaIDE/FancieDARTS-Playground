@@ -1,0 +1,3 @@
+[submodule "app/fanciedarts"]
+	path = app/fanciedarts
+	url = https://ShotaIDE@bitbucket.org/darts_dev/fanciedarts.git
