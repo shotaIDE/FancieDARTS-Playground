@@ -46,7 +46,23 @@ docker run --rm -it \
 ブラウザで http://localhost:10780/fanciedarts にアクセスし、正常に閲覧できるかを確かめる
 
 ## アップグレード処理
+### 手作業で実施
 
+WordPressの管理画面で更新をかけたのち、以下を実施する
+
+```
+cd ${ClonedDir}
+PROJECT_HOME_DIR=`pwd`
+docker run --rm -it \
+    --volumes-from=fanciedarts-web \
+    --volume="$PROJECT_HOME_DIR/tools/replace_code.php:/tmp/wordpress/replace_code.php" \
+    --volume="$PROJECT_HOME_DIR/tools/replace_strings:/tmp/wordpress/replace_strings" \
+    --net=container:fanciedarts-web \
+    php:7.3.6-cli-alpine3.9 \
+    php /tmp/wordpress/replace_code.php
+```
+
+### 完全自動で実施（整備中）
 WordPress本体やテーマ、プラグインの更新が来ている場合は、以下手順でアップグレードを行う
 
 Selenium用のChromeDriverを[公式サイト](http://chromedriver.chromium.org/downloads)から入手し、任意の場所に設置する
