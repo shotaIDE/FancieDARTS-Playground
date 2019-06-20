@@ -15,7 +15,6 @@
 サンプルファイルを元に開発用の環境変数ファイルを作成する
 
 - `darts/db.env.sample` を `darts/db.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
-- `darts/wordpress.env.sample` を `darts/wordpress.env` としてコピーし、データベース名とユーザ名・パスワードを記入する
 
 以下コマンドでコンテナを起動する
 
@@ -46,12 +45,23 @@ docker run --rm -it \
 ブラウザで http://localhost:10780/fanciedarts にアクセスし、正常に閲覧できるかを確かめる
 
 ## アップグレード処理
-### 手作業で実施
+以下の手順で実施する
 
-WordPressの管理画面で更新をかけたのち、以下を実施する
+1. 開発環境のWordPress管理画面で各種更新をかける
+2. 更新により消えたカスタマイズ処理を復元する
+3. リグレッションテストを実施する
+4. リモートリポジトリにPUSHする
+5. 本番サーバにてリモートリポジトリからPULLする
+6. 本番サーバのリグレッションテストを実施する
+
+### 開発環境のWordPress管理画面で各種更新をかける
+以下ページから、WordPress本体・プラグイン・テーマ等を更新する
+http://localhost:10780/fanciedarts/wp-admin/update-core.php
+
+### 更新により消えたカスタマイズ処理を復元する
+以下コマンドにて、ファイル書き換え処理を実施する
 
 ```
-cd ${ClonedDir}
 PROJECT_HOME_DIR=`pwd`
 docker run --rm -it \
     --volumes-from=fanciedarts-web \
@@ -62,23 +72,30 @@ docker run --rm -it \
     php /tmp/wordpress/replace_code.php
 ```
 
-### 完全自動で実施（整備中）
-WordPress本体やテーマ、プラグインの更新が来ている場合は、以下手順でアップグレードを行う
+### リグレッションテストを実施する
+**自動で実施する場合**
+_Pythonの環境が必要だが、手動でもそこまで時間がかからないため、方法は適宜選択する_
+
+Pythonの環境を作成する
+
+以下コマンドにて、依存パッケージをインストールする
+
+```
+cd tools
+pip install -r requirements.txt
+```
 
 Selenium用のChromeDriverを[公式サイト](http://chromedriver.chromium.org/downloads)から入手し、任意の場所に設置する
 
-自動テスト用環境設定ファイルを作成する
+`tools/test_settings.txt.sample`を`tools/test_settings_dev.txt`としてコピーし、ChromeDriverパスと開発環境でのWordPressの管理画面ログインユーザ名(admin)とパスワード(z)を記入する
 
-- `darts/tools/test_settings.txt.sample` を `darts/tools/test_settings_dev.txt` としてコピーし、ChromeDriverパスと開発環境でのWordPressの管理画面ログインユーザ名(admin)とパスワード(z)を記入する
-- `darts/tools/test_settings.txt.sample` を `darts/tools/test_settings_public.txt` としてコピーし、ChromeDriverパスと本番環境でのWordPressの管理画面ログインユーザ名とパスワードを記入する
-
-自動デプロイ用環境設定ファイルを作成する
-
-- `darts/tools/deploy_settings.txt.sample` を `darts/tools/deploy_settings.txt` としてコピーし、`darts/app` のフルパスを記入する
-
-Dockerコンテナを起動したのち、以下コマンドでアップグレードを行う
+以下コマンドでテストを実施し、結果が全てOKになることを確認する
+NGがある場合は、カスタマイズ処理が正常に完了していないので、適宜対応する
 
 ```
-> cd ${darts}/tools
-> ./auto_upgrade.ps1
+cd tools
+python view_test.py localhost:10780/fanciedarts test_settings_dev.txt
 ```
+
+**手動で実施する場合**
+（整備中）
