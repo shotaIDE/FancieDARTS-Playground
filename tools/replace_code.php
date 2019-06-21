@@ -49,6 +49,7 @@ $replaced_code = preg_replace(
     $replaced_code);
 file_put_contents($WP_THEMES_FANCIE_NOTE_CHILD_DIR . '/single-member.php', $replaced_code);
 
+// 社員情報個別ページで、その他社員一覧が記事の下に設定に関わらず出てくるため削除
 $original_code = file_get_contents($WP_THEMES_FANCIE_NOTE_DIR . '/inc/scr/related_posts.php');
 file_put_contents($WP_THEMES_FANCIE_NOTE_DIR . '/inc/scr/related_posts.php',
     preg_replace(
