@@ -12,8 +12,9 @@ RUN yum install -y \
     php-devel \
     php-pecl-memcache \
     php-xml \
-    gcc && \
-    pecl install xdebug-2.2.7
+    gcc \
+    make && \
+    pecl install xdebug-2.4.1
 
 COPY ./apache/darts.conf /etc/httpd/conf.d/
 COPY ./php/xdebug.ini /etc/php.d/
