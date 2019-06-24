@@ -23,4 +23,4 @@ services:
     ports:
       - "10780:80"
     # environment:
-      # XDEBUG_CONFIG: "remote_host={host_ip}"
+    #   XDEBUG_CONFIG: "remote_host=host.docker.internal"
