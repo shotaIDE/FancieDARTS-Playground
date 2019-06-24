@@ -1,5 +1,5 @@
 // ***********************************
-// for FancieDARTS [START]: 社員情報のカスタムフィールド表示のHTML生成
+// for FancieDARTS [START]: 社員テンプレート情報の表示用HTML生成
 // ***********************************
 $member_notation = post_custom($DARTS_MEMBER_TAX_NOTATION);
 $member_pronounciation = post_custom($DARTS_MEMBER_TAX_PRONOUNCIATION);
@@ -28,7 +28,7 @@ foreach ($member_office_list as $key => $val) {
 	$num++;
 }
 // ***********************************
-// for FancieDARTS [END]: 社員情報のカスタムフィールド表示のHTML生成
+// for FancieDARTS [END]: 社員テンプレート情報の表示用HTML生成
 // ***********************************
 
 // **********************************

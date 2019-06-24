@@ -9,33 +9,48 @@ $WP_PLUGINS_DIR = $WP_CONTENT_DIR . '/plugins';
 
 $REPLACE_STRINGS_DIR = '/tmp/wordpress/replace_strings';
 
-$original_code = file_get_contents($WP_INCLUDES_DIR . '/general-template.php');
-file_put_contents($WP_INCLUDES_DIR . '/general-template.php',
+function convertEndOfLineToLF($string) {
+    return preg_replace("/\r\n|\r|\n/", "\n", $string);
+}
+
+$original_code = convertEndOfLineToLF(file_get_contents($WP_INCLUDES_DIR . '/general-template.php'));
+file_put_contents(
+    $WP_INCLUDES_DIR . '/general-template.php',
     str_replace(
         '$title = single_term_title( $tax->labels->name . $t_sep, false );',
         '$title = single_term_title( $t_sep, false ); // for FancieDARTS: 各タクソノミー名だけを表示',
         $original_code)
 );
 
-$original_code = file_get_contents($WP_THEMES_FANCIE_NOTE_DIR . '/archive.php');
-file_put_contents ($WP_THEMES_FANCIE_NOTE_CHILD_DIR . '/taxonomy-member_post.php',
+$original_code = convertEndOfLineToLF(file_get_contents($WP_THEMES_FANCIE_NOTE_DIR . '/archive.php'));
+file_put_contents(
+    $WP_THEMES_FANCIE_NOTE_CHILD_DIR . '/taxonomy-member_post.php',
     str_replace(
         'include (TEMPLATEPATH . "/article-loop.php");',
         'include ("article-loop-member_tax.php"); // for FancieDARTS: 記事ループ処理差し替え',
         $original_code)
 );
-file_put_contents ($WP_THEMES_FANCIE_NOTE_CHILD_DIR . '/taxonomy-member_office.php',
+file_put_contents(
+    $WP_THEMES_FANCIE_NOTE_CHILD_DIR . '/taxonomy-member_office.php',
     str_replace(
         'include (TEMPLATEPATH . "/article-loop.php");',
         'include ("article-loop-member_tax.php"); // for FancieDARTS: 記事ループ処理差し替え',
-        $original_code)
+        $original_code
+    )
 );
 
-$original_code = file_get_contents($WP_THEMES_FANCIE_NOTE_DIR . '/single.php');
+$original_code = convertEndOfLineToLF(file_get_contents($WP_THEMES_FANCIE_NOTE_DIR . '/article-loop.php'));
+$before_str = file_get_contents($REPLACE_STRINGS_DIR . '/generate_display_tax_explanation_before.inc');
+$after_str = file_get_contents($REPLACE_STRINGS_DIR . '/generate_display_tax_explanation_after.inc');
+file_put_contents(
+    $WP_THEMES_FANCIE_NOTE_CHILD_DIR . '/article-loop-member_tax.php',
+    str_replace($before_str, $after_str, $original_code)
+);
+
+$original_code = convertEndOfLineToLF(file_get_contents($WP_THEMES_FANCIE_NOTE_DIR . '/single.php'));
 $before_str = file_get_contents($REPLACE_STRINGS_DIR . '/generate_display_member_tax_before.inc');
 $after_str = file_get_contents($REPLACE_STRINGS_DIR . '/generate_display_member_tax_after.inc');
-$replaced_code = str_replace($before_str, $after_str,
-    $original_code);
+$replaced_code = str_replace($before_str, $after_str, $original_code);
 
 $after_str = file_get_contents($REPLACE_STRINGS_DIR . '/insert_html_member_tax_after.inc');
 $replaced_code = preg_replace(
@@ -49,9 +64,11 @@ $replaced_code = preg_replace(
     $replaced_code);
 file_put_contents($WP_THEMES_FANCIE_NOTE_CHILD_DIR . '/single-member.php', $replaced_code);
 
-// 社員情報個別ページで、その他社員一覧が記事の下に設定に関わらず出てくるため削除
-$original_code = file_get_contents($WP_THEMES_FANCIE_NOTE_DIR . '/inc/scr/related_posts.php');
-file_put_contents($WP_THEMES_FANCIE_NOTE_DIR . '/inc/scr/related_posts.php',
+// 社員個別ページで、記事の下に「その他社員一覧」が管理画面の設定に関わらず出てくるため削除
+// - サイドバーに「社員一覧」を入れるため、記事の下には不要
+$original_code = convertEndOfLineToLF(file_get_contents($WP_THEMES_FANCIE_NOTE_DIR . '/inc/scr/related_posts.php'));
+file_put_contents(
+    $WP_THEMES_FANCIE_NOTE_DIR . '/inc/scr/related_posts.php',
     preg_replace(
         '#'.
 '// Probably Custom post type[\s\S]*</aside><\?php
@@ -62,7 +79,8 @@ file_put_contents($WP_THEMES_FANCIE_NOTE_DIR . '/inc/scr/related_posts.php',
         $original_code)
 );
 
-$original_code = file_get_contents($WP_PLUGINS_DIR . '/custom-field-template/custom-field-template.php');
+// プラグイン「Custom Field Template」とテーマが競合して文字が見えないため、レイアウト調整
+$original_code = convertEndOfLineToLF(file_get_contents($WP_PLUGINS_DIR . '/custom-field-template/custom-field-template.php'));
 file_put_contents($WP_PLUGINS_DIR . '/custom-field-template/custom-field-template.php',
     str_replace(
         '<p class="label">',
