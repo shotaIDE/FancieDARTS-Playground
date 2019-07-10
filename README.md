@@ -1,14 +1,12 @@
-# Fancie DARTS
-各項目に進む前に、開発PCにて以下を実施する（1度だけで良い）
+# FancieDARTS-Playground
+DARTSの開発環境用リポジトリ
 
-開発PCにDockerの環境を用意する
-
-リポジトリを開発用PCにクローンする
+環境構築の前提としてDockerの環境が必要なので、インストールしておく
 
 ## 開発環境構築
 本番環境の管理画面にログインし、「BackWPup」＞「バックアップ」からバックアップアーカイブをダウンロードする
 
-アーカイブを解凍し、`wp-content/`の中身をリポジトリの`app/fanciedarts/wp-content/`に移動する
+アーカイブを解凍し、`wp-content/` の中身をリポジトリの `app/fanciedarts/wp-content/` に移動する
 
 さらに、アーカイブのトップに格納されている `*.sql.gz` を、 `sql/` 内に移動する
 
@@ -19,7 +17,7 @@ docker-compose up -d
 docker-compose logs -f db
 ```
 
-すでにコンテナを起動したことがあり、一旦破棄する場合は、以下コマンドを事前に実行しておく
+すでにコンテナを起動したことがある場合は、以下コマンドを事前に実行しておく
 
 ```
 docker-compose stop
@@ -27,8 +25,8 @@ docker-compose rm -f
 rm app/fanciedarts/wp-config.php
 ```
 
-DBのコンテナログに「ready for connections」と表示されたら、Ctrl+C(Command+C)にてログ監視を終了し、以下コマンドでWordPressサイトの初期化処理を行う  
-※クローン時の設定で改行コードがCR+LFになっている場合は上手く動かないので、LFに修正する
+DBのコンテナログに「ready for connections」と表示されたら、Command+C(Windowsの場合はCtrl+C)にてログ監視を終了し、以下コマンドでWordPressサイトの初期化処理を行う  
+※クローン時の設定で改行コードがCR+LFになっている場合は動かないので、LFに修正する
 
 ```
 PROJECT_HOME_DIR=`pwd`
@@ -46,7 +44,7 @@ docker run --rm -it \
 
 ## 新しいバージョンの更新手順
 WordPress本体・テーマ・プラグインは定期的に新しいバージョンが公開されるので、追従する必要がある  
-しかし、DARTSでは各ソースコードを編集してカスタマイズしているため、単純に新しいバージョンを適用しただけでは、カスタマイズが無効化されてしまう  
+しかし、FancieDARTSではソースコードを編集してカスタマイズしているため、単純に新しいバージョンを適用しただけでは、カスタマイズが無効化されてしまう  
 そのため、新しいバージョン適用時に常にソースコード編集が必要になるが、その手順を自動で実施するスクリプトを用意しているので、ある程度は自動で実施できる
 
 **更新**
@@ -56,7 +54,7 @@ http://localhost:10780/fanciedarts/wp-admin/update-core.php
 
 **ソースコード編集**
 
-以下コマンドにて、ファイル書き換え処理を実施する
+以下コマンドにて、ソースコード書き換えスクリプトを実行する
 
 ```
 PROJECT_HOME_DIR=`pwd`
