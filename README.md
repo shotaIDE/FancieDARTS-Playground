@@ -66,27 +66,3 @@ docker run --rm -it \
     php:7.3.6-cli-alpine3.9 \
     php /tmp/wordpress/replace_code.php
 ```
-
-**リグレッションテストを実施する**
-_Pythonの環境が必要だが、手動でもそこまで時間がかからないため、方法は適宜選択する_
-
-Pythonの環境を準備する
-
-以下コマンドにて、依存パッケージをインストールする
-
-```
-cd tools
-pip install -r requirements.txt
-```
-
-Selenium用のChromeDriverを[公式サイト](http://chromedriver.chromium.org/downloads)から入手し、任意の場所に設置する
-
-`tools/test_settings.txt.sample`を`tools/test_settings_dev.txt`としてコピーし、ChromeDriverパスと開発環境でのWordPressの管理画面ログインユーザ名(admin)とパスワード(z)を記入する
-
-以下コマンドでテストを実施し、結果が全てOKになることを確認する
-NGがある場合は、カスタマイズ処理が正常に完了していないので、適宜対応する
-
-```
-cd tools
-python view_test.py localhost:10780/fanciedarts test_settings_dev.txt
-```
