@@ -6,9 +6,9 @@ DARTSの開発環境用リポジトリ
 ## 開発環境構築
 本番環境の管理画面にログインし、「BackWPup」＞「バックアップ」からバックアップアーカイブをダウンロードする
 
-アーカイブを解凍し、`wp-content/` の中身をリポジトリの `app/fanciedarts/wp-content/` に移動する
+アーカイブを解凍し、`wp-content/` の中身をリポジトリの `app/fanciedarts/wp-content/` に上書きする
 
-さらに、アーカイブのトップに格納されている `*.sql.gz` を、 `sql/` 内に移動する
+さらに、アーカイブのトップに格納されている `*.sql.gz` を、 `sql/` 内にコピーする
 
 以下コマンドでコンテナを起動し、DBのコンテナログを監視する
 
@@ -25,7 +25,7 @@ docker-compose rm -f
 rm app/fanciedarts/wp-config.php
 ```
 
-DBのコンテナログに「ready for connections」と表示されたら、Command+C(Windowsの場合はCtrl+C)にてログ監視を終了し、以下コマンドでWordPressサイトの初期化処理を行う  
+DBのコンテナログに「ready for connections」と表示されたら、Ctrl+Cにてログ監視を終了し、以下コマンドでWordPressサイトの初期化処理を行う  
 ※クローン時の設定で改行コードがCR+LFになっている場合は動かないので、LFに修正する
 
 ```
@@ -41,6 +41,11 @@ docker run --rm -it \
 ```
 
 ブラウザで http://localhost:10780/fanciedarts にアクセスし、正常に閲覧できるかを確かめる
+
+各記事に遷移したらNotFoundと表示される場合は、パーマリンク設定を貼り直す
+
+1. http://localhost:10780/fanciedarts/wp-admin にアクセスし、admin/z でログイン
+2. 設定＞パーマリンク設定から、何も設定を変更せずに「変更を保存」ボタンをクリックする
 
 ## 新しいバージョンの更新手順
 WordPress本体・テーマ・プラグインは定期的に新しいバージョンが公開されるので、追従する必要がある  
